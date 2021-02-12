@@ -1,33 +1,32 @@
 package at.peer.arisu.crypto.price_getter.model;
 
 
-
 import javax.persistence.*;
-import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "crypto_price")
+@Table(name = "crypto")
 public class Crypto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "crypto_id")
     private Integer id;
 
-    @Column(name = "currency")
-    private String currency;
+    @Column(name = "crypto_name")
+    private String name;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "crypto_shortname")
+    private String shortname;
 
-    @Column(name = "timestamp")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    @Column(name = "crypto_imageurl")
+    private String imageUrl;
+
+
+    @OneToMany(mappedBy="crypto")
+    private List<CryptoPrice> prices;
 
     public Crypto() {
-    }
-
-    public Crypto(String currency) {
-        this.currency = currency;
     }
 
     public Integer getId() {
@@ -38,27 +37,43 @@ public class Crypto {
         this.id = id;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getName() {
+        return name;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getShortname() {
+        return shortname;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setShortname(String shortname) {
+        this.shortname = shortname;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Crypto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortname='" + shortname + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", prices=" + prices +
+                '}';
     }
 }
+
+
+
